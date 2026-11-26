@@ -40,7 +40,7 @@ The project also addresses practical simulation integration challenges, includin
   <img src="s1.png" width="100%">
 </p>
 
-===========================================================================================================
+=========================================================================================================
 
 
 
@@ -147,7 +147,7 @@ RViz2 is configured to monitor the robot's state and sensor data during navigati
 The visualization includes:
 
 - Robot model and link structure.
-- Live 360° LiDAR scan.
+- Live LiDAR scan.
 - TF coordinate frames.
 - Odometry information.
 
