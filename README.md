@@ -13,9 +13,7 @@
   An autonomous differential-drive robot that navigates a custom maze using real-time LiDAR perception and a reactive obstacle avoidance algorithm.
 </p>
 
-<p align="center">
-  <img src="media/cover.png" alt="Autonomous Mobile Robot Simulation" width="85%">
-</p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/ROS_2-Jazzy-22314E?logo=ros" alt="ROS 2 Jazzy">
@@ -39,9 +37,7 @@ The project also addresses practical simulation integration challenges, includin
 
 ## Simulation Demo
 
-<p align="center">
-  <img src="media/screenshots/gazebo_simulation.png" alt="Gazebo Simulation" width="80%">
-</p>
+
 
 <p align="center">
   <a href="YOUR_VIDEO_LINK">▶ Watch Full Simulation Demo</a>
