@@ -37,12 +37,12 @@ The project also addresses practical simulation integration challenges, includin
 
 ## Simulation Demo
 <p align="center">
-  <img src="s1.jpeg" width="100%">
+  <img src="s1.png" width="100%">
 </p>
 
 =====================================================================
 <p align="center">
-  <img src="s2.jpeg" width="100%">
+  <img src="s2.png" width="100%">
 </p>
 
 *Replace the placeholder link with the actual hosted video URL.*
