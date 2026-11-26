@@ -39,10 +39,6 @@ The project also addresses practical simulation integration challenges, includin
 
 
 
-<p align="center">
-  <a href="YOUR_VIDEO_LINK">▶ Watch Full Simulation Demo</a>
-</p>
-
 *Replace the placeholder link with the actual hosted video URL.*
 
 ## Key Features
