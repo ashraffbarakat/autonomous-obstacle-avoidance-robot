@@ -1,10 +1,12 @@
 # Autonomous Obstacle-Avoidance Mobile Robot
 
+
+
+An autonomous differential-drive mobile robot developed using **ROS 2 Jazzy** and **Gazebo Harmonic**. The robot uses a 360° 2D GPU LiDAR sensor and a custom Python-based reactive obstacle avoidance algorithm to navigate through a custom 14 × 14 maze.
+
 <p align="center">
   <img src="cover.jpeg" width="100%">
 </p>
-
-An autonomous differential-drive mobile robot developed using **ROS 2 Jazzy** and **Gazebo Harmonic**. The robot uses a 360° 2D GPU LiDAR sensor and a custom Python-based reactive obstacle avoidance algorithm to navigate through a custom 14 × 14 maze.
 
 This is a simulation-only project. It does not rely on SLAM, map generation, or Nav2.
 
