@@ -247,7 +247,7 @@ Potential extensions include:
 
 **Ashraf Barakat**
 
-Individual Engineering Project
+Mechatronics Engineer Student
 
 ---
 
