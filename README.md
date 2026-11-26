@@ -40,10 +40,8 @@ The project also addresses practical simulation integration challenges, includin
   <img src="s1.png" width="100%">
 </p>
 
-====================================================================================================================
-<p align="center">
-  <img src="s2.png" width="100%">
-</p>
+===========================================================================================================
+
 
 
 ## Key Features
@@ -63,7 +61,7 @@ The project also addresses practical simulation integration challenges, includin
 The system is divided into three ROS 2 packages, each responsible for a specific part of the simulation.
 
 <p align="center">
-  <img src="media/architecture.png" alt="System Architecture" width="90%">
+  <img src="s2.png" width="100%">
 </p>
 
 ### Package Structure
@@ -74,36 +72,8 @@ The system is divided into three ROS 2 packages, each responsible for a specific
 | `obstacle_avoidance_controller` | `ament_python` | LiDAR processing and autonomous obstacle avoidance |
 | `edges_bringup` | `ament_cmake` | Simulation orchestration and unified launch system |
 
-### Workspace Structure
 
-```text
-modeling_ws/
-├── src/
-│   ├── edges_description/
-│   │   ├── urdf/
-│   │   │   └── edges_mobile_robot.xacro
-│   │   ├── worlds/
-│   │   │   └── obstacle_world.sdf
-│   │   ├── rviz/
-│   │   │   └── edges_config.rviz
-│   │   └── ...
-│   │
-│   ├── obstacle_avoidance_controller/
-│   │   ├── obstacle_avoidance_controller/
-│   │   │   └── obstacle_avoidance_node.py
-│   │   ├── config/
-│   │   │   └── obstacle_avoidance.yaml
-│   │   └── ...
-│   │
-│   └── edges_bringup/
-│       ├── launch/
-│       │   └── autonomous_robot.launch.py
-│       └── ...
-│
-└── ...
-```
 
-*The tree above illustrates the main package organization. Exact paths should be aligned with the final source tree.*
 
 ## Obstacle Avoidance Algorithm
 
@@ -171,7 +141,7 @@ The simulation uses `ros_gz_bridge` to exchange data between Gazebo and ROS 2.
 RViz2 is configured to monitor the robot's state and sensor data during navigation.
 
 <p align="center">
-  <img src="media/screenshots/rviz_visualization.png" alt="RViz2 Visualization" width="90%">
+  <img src="s2.png" width="100%">
 </p>
 
 The visualization includes:
