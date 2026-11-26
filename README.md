@@ -61,7 +61,7 @@ The project also addresses practical simulation integration challenges, includin
 The system is divided into three ROS 2 packages, each responsible for a specific part of the simulation.
 
 <p align="center">
-  <img src="s2.png" width="100%">
+  <img src="flowchart.jpeg" width="100%">
 </p>
 
 ### Package Structure
