@@ -4,130 +4,231 @@
   <img src="cover.jpeg" width="100%">
 </p>
 
-An autonomous differential-drive mobile robot developed using **ROS 2 Jazzy** and **Gazebo Harmonic**. The robot uses a 360° 2D GPU LiDAR sensor and a custom Python-based reactive obstacle avoidance algorithm to navigate through a custom 14 × 14 maze.
 
+<p align="center">
+  <strong>ROS 2 Jazzy · Gazebo Harmonic · Python · 360° GPU LiDAR</strong>
+</p>
 
-This is a simulation-only project. It does not rely on SLAM, map generation, or Nav2.
+<p align="center">
+  An autonomous differential-drive robot that navigates a custom maze using real-time LiDAR perception and a reactive obstacle avoidance algorithm.
+</p>
 
-## Project Demo
+<p align="center">
+  <img src="media/cover.png" alt="Autonomous Mobile Robot Simulation" width="85%">
+</p>
 
-<!-- Add your simulation video here -->
-[Watch the Simulation Demo](media/demo.mp4)
+<p align="center">
+  <img src="https://img.shields.io/badge/ROS_2-Jazzy-22314E?logo=ros" alt="ROS 2 Jazzy">
+  <img src="https://img.shields.io/badge/Simulation-Gazebo_Harmonic-orange" alt="Gazebo Harmonic">
+  <img src="https://img.shields.io/badge/Language-Python_3-blue?logo=python" alt="Python 3">
+  <img src="https://img.shields.io/badge/Status-Completed-success" alt="Completed">
+  <img src="https://img.shields.io/badge/Platform-Ubuntu_24.04-E95420?logo=ubuntu" alt="Ubuntu 24.04">
+</p>
 
-## Features
+---
 
-- Autonomous navigation using a custom Python obstacle avoidance algorithm.
-- 360° 2D GPU LiDAR for real-time obstacle detection.
-- Reactive navigation without SLAM or mapping.
-- Automatic selection of the clearer direction when an obstacle is detected.
-- Direction locking with hysteresis to reduce unnecessary left-right switching.
-- U-shaped dead-end detection and escape, tested successfully.
-- Custom 14 × 14 Gazebo maze environment.
-- Real-time visualization in RViz2:
-  - Robot model
-  - LiDAR scan
-  - TF transforms
-  - Odometry
-- Unified ROS 2 launch file to start the simulation.
+## Overview
+
+This project presents a simulated autonomous mobile robot built with **ROS 2 Jazzy** and **Gazebo Harmonic**.
+
+The robot uses a 360° 2D GPU LiDAR sensor to perceive its surroundings and navigate through a custom 14 × 14 maze. A custom Python-based reactive obstacle avoidance controller continuously processes LiDAR measurements, identifies obstacles, evaluates available paths, and generates velocity commands.
+
+Unlike map-based navigation systems, this implementation operates without SLAM, mapping, or Nav2. Navigation decisions are made directly from real-time sensor measurements.
+
+The project also addresses practical simulation integration challenges, including ROS-Gazebo communication, TF frame consistency, and synchronized system startup.
+
+## Simulation Demo
+
+<p align="center">
+  <img src="media/screenshots/gazebo_simulation.png" alt="Gazebo Simulation" width="80%">
+</p>
+
+<p align="center">
+  <a href="YOUR_VIDEO_LINK">▶ Watch Full Simulation Demo</a>
+</p>
+
+*Replace the placeholder link with the actual hosted video URL.*
+
+## Key Features
+
+- **Autonomous Navigation:** Reactive obstacle avoidance without a predefined map.
+- **360° LiDAR Perception:** Continuous environmental sensing using a GPU-based 2D LiDAR.
+- **Dynamic Direction Selection:** Evaluates left and right free-space distances to select a navigation direction.
+- **Hysteresis-Based Direction Lock:** Reduces unnecessary switching between turning directions.
+- **Dead-End Recovery:** Successfully tested escape behavior for U-shaped dead ends.
+- **Custom Simulation Environment:** A 14 × 14 maze developed in Gazebo.
+- **ROS 2 Integration:** Communication between Gazebo and ROS 2 through `ros_gz_bridge`.
+- **Live Visualization:** Robot model, LiDAR scans, TF frames, and odometry displayed in RViz2.
+- **Unified Launch:** Starts the complete simulation using a single ROS 2 launch command.
 
 ## System Architecture
 
-The project is organized into three ROS 2 packages inside the `modeling_ws` workspace.
+The system is divided into three ROS 2 packages, each responsible for a specific part of the simulation.
 
-| Package | Type | Responsibility |
+<p align="center">
+  <img src="media/architecture.png" alt="System Architecture" width="90%">
+</p>
+
+### Package Structure
+
+| Package | Build Type | Responsibility |
 |---|---|---|
-| `edges_description` | `ament_cmake` | Robot model, Gazebo plugins, maze world, and RViz configuration |
-| `obstacle_avoidance_controller` | `ament_python` | Custom Python obstacle avoidance controller |
-| `edges_bringup` | `ament_cmake` | Unified simulation launch and system integration |
+| `edges_description` | `ament_cmake` | Robot description, Gazebo plugins, maze world, and RViz configuration |
+| `obstacle_avoidance_controller` | `ament_python` | LiDAR processing and autonomous obstacle avoidance |
+| `edges_bringup` | `ament_cmake` | Simulation orchestration and unified launch system |
 
-### Main Components
+### Workspace Structure
 
-**Robot Description — `edges_description`**
-- `edges_mobile_robot.xacro`: Differential-drive robot model.
-- `obstacle_world.sdf`: Custom maze environment.
-- `edges_config.rviz`: RViz2 visualization configuration.
-- Gazebo plugins for differential drive, joint states, and GPU LiDAR.
+```text
+modeling_ws/
+├── src/
+│   ├── edges_description/
+│   │   ├── urdf/
+│   │   │   └── edges_mobile_robot.xacro
+│   │   ├── worlds/
+│   │   │   └── obstacle_world.sdf
+│   │   ├── rviz/
+│   │   │   └── edges_config.rviz
+│   │   └── ...
+│   │
+│   ├── obstacle_avoidance_controller/
+│   │   ├── obstacle_avoidance_controller/
+│   │   │   └── obstacle_avoidance_node.py
+│   │   ├── config/
+│   │   │   └── obstacle_avoidance.yaml
+│   │   └── ...
+│   │
+│   └── edges_bringup/
+│       ├── launch/
+│       │   └── autonomous_robot.launch.py
+│       └── ...
+│
+└── ...
+```
 
-**Obstacle Avoidance — `obstacle_avoidance_controller`**
-- `obstacle_avoidance_node.py`: Processes LiDAR data and generates velocity commands.
-- `obstacle_avoidance.yaml`: Controller configuration.
-
-**Bringup — `edges_bringup`**
-- `autonomous_robot.launch.py`: Starts Gazebo, robot spawning, ROS-Gazebo bridges, RViz2, and the obstacle avoidance controller.
+*The tree above illustrates the main package organization. Exact paths should be aligned with the final source tree.*
 
 ## Obstacle Avoidance Algorithm
 
-The robot uses a reactive obstacle avoidance strategy based on real-time LiDAR measurements.
+The robot implements a custom reactive navigation algorithm based on real-time LiDAR measurements.
 
-1. **LiDAR Processing:** Subscribes to `/scan` and analyzes the surrounding environment.
-2. **Front Obstacle Detection:** Checks a front field of view of ±30°.
-3. **Safe Distance:** Uses 0.85 m as the obstacle detection threshold.
-4. **Forward Motion:** Moves forward at 0.45 m/s when the path is clear.
-5. **Direction Selection:** Compares average free distances on the left and right sides and selects the more open direction.
-6. **Direction Lock with Hysteresis:** Prevents rapid switching between left and right directions.
-7. **Dead-End Escape:** Performs a 180° turn to escape U-shaped dead ends.
+### 1. Sensor Processing
 
-The controller publishes velocity commands through `/cmd_vel`.
+The controller subscribes to `/scan` and analyzes the LiDAR readings to estimate obstacle distances around the robot.
 
-## ROS 2 Topics
+### 2. Front Obstacle Detection
 
-The simulation uses `ros_gz_bridge` to connect Gazebo topics with ROS 2.
+A forward field of view of ±30° is monitored.
 
-| Topic | Description |
+- Safe distance threshold: **0.85 m**
+- Forward linear velocity: **0.45 m/s**
+
+When the front path is clear, the robot continues moving forward.
+
+### 3. Direction Selection
+
+When an obstacle is detected, the controller compares the average available free distance on the left and right sides.
+
+The direction with more available space is selected for the avoidance maneuver.
+
+### 4. Direction Lock and Hysteresis
+
+A direction-lock mechanism with hysteresis prevents rapid switching between left and right decisions.
+
+This improves the consistency of turning behavior in narrow passages and around nearby obstacles.
+
+### 5. U-Shaped Dead-End Recovery
+
+The controller includes a recovery behavior for U-shaped dead ends.
+
+When the robot cannot continue through the current path, it performs a 180° turning maneuver to escape the dead end.
+
+<details>
+<summary><strong>Algorithm Parameters</strong></summary>
+
+| Parameter | Value |
+|---|---:|
+| Front detection angle | ±30° |
+| Safe obstacle distance | 0.85 m |
+| Forward linear velocity | 0.45 m/s |
+| Angular velocity | 0.9 rad/s |
+| Dead-end recovery rotation | 180° |
+
+</details>
+
+## ROS 2 Communication
+
+The simulation uses `ros_gz_bridge` to exchange data between Gazebo and ROS 2.
+
+| Topic | Direction / Purpose | Description |
+|---|---|---|
+| `/scan` | Gazebo → ROS 2 | LiDAR measurements |
+| `/cmd_vel` | ROS 2 → Gazebo | Robot velocity commands |
+| `/odom` | Gazebo → ROS 2 | Odometry information |
+| `/tf` | ROS 2 / Gazebo integration | Coordinate transforms |
+| `/joint_states` | Gazebo → ROS 2 | Wheel joint states |
+| `/clock` | Gazebo → ROS 2 | Simulation clock |
+
+## Visualization
+
+RViz2 is configured to monitor the robot's state and sensor data during navigation.
+
+<p align="center">
+  <img src="media/screenshots/rviz_visualization.png" alt="RViz2 Visualization" width="90%">
+</p>
+
+The visualization includes:
+
+- Robot model and link structure.
+- Live 360° LiDAR scan.
+- TF coordinate frames.
+- Odometry information.
+
+## Engineering Implementation
+
+### TF Tree Integration
+
+The differential-drive plugin is configured with:
+
+```text
+frame_id: odom
+child_frame_id: base_footprint
+```
+
+The joint state publisher and `/joint_states` bridge are integrated to maintain the robot's joint information and visualization in RViz2.
+
+### Simulation Startup Synchronization
+
+A delayed controller startup is implemented using `TimerAction`.
+
+This ensures that Gazebo, robot spawning, and the required communication bridges have sufficient time to initialize before the autonomous controller starts.
+
+### Gazebo and ROS 2 Integration
+
+The `ros_gz_bridge` package connects the simulation environment with ROS 2 topics, allowing sensor data to reach the controller and velocity commands to control the simulated robot.
+
+## Technology Stack
+
+| Category | Technology |
 |---|---|
-| `/scan` | 360° LiDAR measurements |
-| `/cmd_vel` | Robot velocity commands |
-| `/odom` | Odometry data |
-| `/tf` | Coordinate frame transforms |
-| `/joint_states` | Wheel joint states |
-| `/clock` | Simulation clock |
+| Robotics Middleware | ROS 2 Jazzy |
+| Simulation | Gazebo Harmonic |
+| Programming | Python 3 |
+| Robot Description | URDF / Xacro |
+| Simulation World | SDF |
+| Visualization | RViz2 |
+| Communication | `ros_gz_bridge` |
+| Build System | Colcon / CMake |
+| Operating System | Ubuntu 24.04 |
 
-## RViz2 Visualization
-
-RViz2 provides real-time visualization of the robot model, LiDAR measurements, TF frames, and odometry.
-
-<!-- Add your RViz2 screenshots inside media/screenshots/ -->
-![RViz2 Visualization](media/screenshots/rviz_visualization.png)
-
-## Engineering Challenges and Solutions
-
-**1. TF Tree Integration**
-
-Configured the differential-drive plugin with:
-- `frame_id`: `odom`
-- `child_frame_id`: `base_footprint`
-
-Integrated the joint state publisher and `/joint_states` bridge to maintain the robot's TF tree and visualization in RViz2.
-
-**2. Simulation Startup Synchronization**
-
-Used `TimerAction` in the launch file to delay controller startup until the Gazebo world, robot spawning process, and required bridges are ready.
-
-**3. U-Shaped Dead-End Navigation**
-
-Implemented a dead-end escape behavior using a 180° turn to help the robot recover when forward navigation is blocked.
-
-## Technologies
-
-- ROS 2 Jazzy
-- Ubuntu 24.04
-- Gazebo Harmonic
-- Python 3
-- CMake
-- Xacro / URDF
-- SDF
-- RViz2
-- `ros_gz_bridge`
-- LiDAR-based reactive navigation
-
-## Installation and Execution
+## Installation & Execution
 
 ### Prerequisites
 
 - Ubuntu 24.04
 - ROS 2 Jazzy
 - Gazebo Harmonic
-- `ros_gz` integration packages
+- ROS-Gazebo integration packages
 - Colcon build tools
 
 ### 1. Clone the Repository
@@ -140,7 +241,6 @@ cd autonomous-obstacle-avoidance-robot
 ### 2. Build the Workspace
 
 ```bash
-cd ~/modeling_ws
 colcon build --symlink-install
 ```
 
@@ -156,27 +256,34 @@ source install/setup.bash
 ros2 launch edges_bringup autonomous_robot.launch.py
 ```
 
-The launch file starts the complete simulation system.
+The launch file brings up the Gazebo world, spawns the robot, initializes the required bridges, starts RViz2, and launches the obstacle avoidance controller.
 
 ## Project Status
 
-**Completed and tested.**
+<p align="center">
+  <img src="https://img.shields.io/badge/Development-Completed-success" alt="Development Completed">
+  <img src="https://img.shields.io/badge/Testing-Successful-success" alt="Testing Successful">
+</p>
 
-- Simulation environment implemented.
-- Custom reactive obstacle avoidance controller implemented.
-- LiDAR-based navigation tested.
-- U-shaped dead-end escape tested successfully.
-- RViz2 visualization configured.
+The project has been implemented and tested in simulation, including autonomous obstacle avoidance and U-shaped dead-end recovery.
 
-## Future Improvements
+## Future Development
 
-- Implement SLAM and autonomous mapping.
-- Integrate ROS 2 Nav2 for map-based navigation.
-- Test the controller on a physical differential-drive robot.
-- Improve navigation performance in more complex environments.
+Potential extensions include:
+
+- Integrating SLAM for real-time map generation.
+- Implementing ROS 2 Nav2 for map-based navigation.
+- Testing the navigation algorithm on physical robot hardware.
+- Evaluating navigation performance across more complex environments.
 
 ## Author
 
 **Ashraf Barakat**
 
-Individual Project
+Individual Engineering Project
+
+---
+
+<p align="center">
+  <sub>Built with ROS 2 · Simulated with Gazebo · Documented for robotics development</sub>
+</p>
