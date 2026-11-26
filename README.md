@@ -36,8 +36,14 @@ Unlike map-based navigation systems, this implementation operates without SLAM, 
 The project also addresses practical simulation integration challenges, including ROS-Gazebo communication, TF frame consistency, and synchronized system startup.
 
 ## Simulation Demo
+<p align="center">
+  <img src="s1.jpeg" width="100%">
+</p>
 
-
+=====================================================================
+<p align="center">
+  <img src="s2.jpeg" width="100%">
+</p>
 
 *Replace the placeholder link with the actual hosted video URL.*
 
